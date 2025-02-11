@@ -138,8 +138,8 @@ function renderMenu() {
         const noResults = document.createElement('div');
         noResults.className = 'no-results';
         noResults.innerHTML = `
-            <h3>No items found</h3>
-            <p>Try adjusting your search or filters</p>
+            <h3>Нічого не знайдено</h3>
+            <p>Спробуйте налаштувати пошук або фільтри</p>
         `;
         menuGrid.appendChild(noResults);
         return;
@@ -213,10 +213,12 @@ fetch("menu.txt") // Fetch the menu data from the text file
             const lines = block.split("\n");
             const category = lines[0];
             for (let index = 1; index < lines.length; index++) {
-                const name = lines[index++];
+                const nameAndPrice = lines[index++].split(";");
+                const name = nameAndPrice[0];
+                const price = nameAndPrice[1] || 'n/a';
                 const description = lines[index];
                 if (name) {
-                    menuData.items.push({ name: name, category: category, price: 'n/a', description: description, dietary:[] });
+                    menuData.items.push({ name: name, category: category, price: price + '&nbsp;₴', description: description, dietary:[] });
                 }
             }
         }
