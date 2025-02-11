@@ -207,15 +207,14 @@ document.addEventListener('DOMContentLoaded', () => {
 fetch("menu.txt") // Fetch the menu data from the text file
     .then((response) => response.text()) // Read the text response
     .then((txt) => {
-        const blocks = txt.split("\n\n");
+        const blocks = txt.split("\n\n\n");
         for (let i = 0; i < blocks.length; i++) {
             const block = blocks[i];
             const lines = block.split("\n");
             const category = lines[0];
             for (let index = 1; index < lines.length; index++) {
-                const nameAndPrice = lines[index++].split(";");
-                const name = nameAndPrice[0];
-                const price = nameAndPrice[1] || 'n/a';
+                const name = lines[index++];
+                const price = lines[index++] || "n/a";
                 const description = lines[index];
                 if (name) {
                     menuData.items.push({ name: name, category: category, price: price + '&nbsp;₴', description: description, dietary:[] });
