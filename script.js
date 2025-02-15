@@ -139,7 +139,7 @@ function renderMenu() {
         noResults.className = 'no-results';
         noResults.innerHTML = `
             <h3>Нічого не знайдено</h3>
-            <p>Спробуйте налаштувати пошук або фільтри</p>
+            <p>Спробуйте налаштувати пошук або змінити фільтри</p>
         `;
         menuGrid.appendChild(noResults);
         return;
@@ -214,10 +214,11 @@ fetch("menu.txt") // Fetch the menu data from the text file
             const category = lines[0];
             for (let index = 1; index < lines.length; index++) {
                 const name = lines[index++];
-                const price = lines[index++] || "n/a";
+                const price = (lines[index++] || "?").split(" ");
+                const quantity = price[1] || "100г";
                 const description = lines[index];
                 if (name) {
-                    menuData.items.push({ name: name, category: category, price: price + '&nbsp;₴', description: description, dietary:[] });
+                    menuData.items.push({ name: name, category: category, price: `${price[0]}₴ за ${quantity}`, description: description, dietary:[] });
                 }
             }
         }
@@ -270,11 +271,11 @@ fetch("menu.txt") // Fetch the menu data from the text file
             }
         });
 
-        document.getElementById('dietary-filters').addEventListener('click', (e) => {
-            if (e.target.classList.contains('filter-btn')) {
-                handleFilterClick('dietary', e.target.dataset.dietary);
-            }
-        });
+        // document.getElementById('dietary-filters').addEventListener('click', (e) => {
+        //     if (e.target.classList.contains('filter-btn')) {
+        //         handleFilterClick('dietary', e.target.dataset.dietary);
+        //     }
+        // });
     })
     .catch((error) => {
         console.error("Error loading menu:", error);
