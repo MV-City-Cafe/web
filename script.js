@@ -233,7 +233,8 @@ fetch("menu.txt") // Fetch the menu data from the text file
         const debouncedSearch = debounce((e) => {
             searchQuery = e.target.value;
             const suggestions = getSuggestions(searchQuery);
-            showSuggestions(suggestions, searchQuery);
+            // todo
+            // showSuggestions(suggestions, searchQuery);
             renderMenu();
             clearButton.classList.toggle('active', searchQuery.length > 0);
         }, 300);
